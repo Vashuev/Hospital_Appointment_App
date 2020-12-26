@@ -1,14 +1,23 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CreateUserForm
+from .forms import CreateUserForm, Signup_Form
 from django.contrib.auth import authenticate, login, logout
-from .decorators import already_login
+from .decorators import already_login, doctor_only, allowed_user
+from .models import Doctor, Patient
+from django.contrib.auth.models import User, Group
 # Create your views here.
 @login_required(login_url='login')
+@doctor_only
 def homePage(request):
     context = {}
     return render(request, 'home.html', context)
+
+@login_required(login_url='login')
+@allowed_user(allowed_roles=['patient'])
+def patientPage(request):
+    context = {}
+    return render(request, 'patient.html', context)
 
 @already_login
 def registerPage(request):
@@ -30,6 +39,7 @@ def loginPage(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             login(request, user)
             return redirect('home')

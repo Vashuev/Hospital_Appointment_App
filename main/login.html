@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center h-100">
+	<div class="container-sm my-3" style="max-width: 600px;">
+		<form class="bg-light p-sm-4 p-2 rounded" action="" method="POST">
+			<h2 class='text-center text-uppercase mb-3'>Login</h2>
+
+			<div class="form-group row mb-2">
+				<label for="email" class="col-sm-3 col-form-label">Email*</label>
+				<div class="col-sm-9">
+					<input type="email" class="form-control" id="email" aria-describedby="Email" placeholder="Email Id"
+						required>
+				</div>
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="password" class="col-sm-3 col-form-label">Password*</label>
+				<div class="col-sm-9">
+					<input type="password" class="form-control" id="password" aria-describedby="password"
+						placeholder="Password" required>
+				</div>
+			</div>
+
+			<small class="form-text text-mute">* Required fields</small>
+			<button type="submit" class="btn btn-primary w-100">Register</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

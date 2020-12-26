@@ -19,9 +19,13 @@ class Doctor(models.Model):
 
 class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=200, null=True)
-    phone = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=100, null=True)
+    phone = models.CharField(max_length=15, null=True)
+    email = models.EmailField(max_length=200, null=True)
+    dob = models.DateField(max_length=50, null=True)
+    height = models.FloatField(null=True)
+    weight = models.FloatField(null=True)
+    #gender = models.CharField(max_length=10, null=True)
     def __str__(self):
         return self.name
     

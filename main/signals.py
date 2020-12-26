@@ -7,7 +7,6 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         group = Group.objects.get(name='patient')
         instance.groups.add(group)
-
         Patient.objects.create(
             user= instance,
             name = instance.username,
