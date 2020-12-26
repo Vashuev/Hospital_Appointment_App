@@ -22,7 +22,7 @@ def registerPage(request):
             return redirect('login')
     
     context = {'form': form}
-    return redirect(request, 'register.html', context=context)
+    return render(request, 'register.html', context=context)
 
 @already_login
 def loginPage(request):
