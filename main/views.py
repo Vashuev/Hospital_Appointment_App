@@ -125,6 +125,6 @@ def prescription(request, pk):
     context = {'prescript': prescript}
     return render(request, 'prescription.html', context)
 
-def appointment(request):
-
+def appointment(request, pk, time):
+    doctor = Doctor.objects.get(id=pk)
     return redirect('home')
