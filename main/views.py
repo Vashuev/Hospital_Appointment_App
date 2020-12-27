@@ -81,8 +81,6 @@ def create_appointment(request, pk):
     appoints = doctor.appointment_set.all()
     time_range = []
     for x in range(9 , 17):
-        if x >12:
-            x = x-12
         time_range.append(x)
     time = appoints.values('time')
     times = []
@@ -127,4 +125,6 @@ def prescription(request, pk):
 
 def appointment(request, pk, time):
     doctor = Doctor.objects.get(id=pk)
+    patient = request.user.patient
+    Appointment.objects.create(doctor=doctor, patient=patient, time=int(time), status="PENDING")
     return redirect('home')

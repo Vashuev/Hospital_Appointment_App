@@ -20,7 +20,7 @@
                 {% for time_slot in time_range  %}
                 {% if time_slot not in times %}
                 <tr>
-                    <td>{{time_slot}}</td>
+                    <td>{{time_slot}}:00 - {{ time_slot|add:"1"}}:00 </td>
                     <td><a class="btn btn-info btn-sm btn-block" href="{% url 'appointment' doctor.id time_slot  %}">Done</a></td>
                 </tr>
                 {% endif%}

@@ -49,8 +49,9 @@
             <div class="card card-body">
                 <h5>YOUR APPOINTMENTS:</h5>
                 <hr>
-                <h5 style="opacity: 0.65; font-weight: bold;">Current Appointments</h5>
+                {% if pending != 0 %}
                 <table class="table table-sm table-hover current-appointments">
+                    <h5 style="opacity: 0.65; font-weight: bold;">Current Appointments</h5>
                     <thead>
                         <tr>
                             <th>Status</th>
@@ -64,6 +65,7 @@
     
                     <tbody>
                         {% for appoint in appoints %}
+                        {% if appoint.status == 'PENDING' %}
                         <tr>
                             <td>{{appoint.status}}</td>
                             <td>{{appoint.doctor.name}}</td>
@@ -72,10 +74,13 @@
                             <td><a class="btn btn-warning btn-sm btn-block" href="{% url 'update_appoint' appoint.id %}">Update</a></td>
                             <td><a class="btn btn-danger btn-sm btn-block" href="{% url 'delete_appoint' appoint.id %}">Delete</a></td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
-    
+                {% endif %}
+                
+                {% if completed != 0 %}
                 <table class="table table-sm table-hover past-appointments">
                     <h5 style="opacity: 0.65; font-weight: bold;">Past Appointments</h5>
                     <thead>
@@ -90,16 +95,19 @@
     
                     <tbody>
                         {% for appoint in appoints %}
+                        {% if appoint.status == 'DONE' %}
                         <tr>
                             <td>{{appoint.status}}</td>
                             <td>{{appoint.doctor.name}}</td>
                             <td>{{appoint.doctor.department}}</td>
                             <td>{{appoint.date_created}}</td>
-                            <td><a class="btn btn-warning btn-sm btn-block" href="{% url 'prescription' appoint.id %}">View</a></td>
+                            <td colspan="2"><a class="btn btn-warning btn-sm btn-block" href="{% url 'prescription' appoint.id %}">View</a></td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
+                {% endif %}
             </div>
         </div>
     </div>
