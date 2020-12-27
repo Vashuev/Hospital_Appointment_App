@@ -7,54 +7,98 @@
 </div>
 {% include 'status.html' %}
 
+<style>
+    .card-img-top {
+        width: 100%;
+        max-height: 10rem;
+        object-fit: cover;
+        object-position: top center;
+
+        display: block;
+        margin: 0 auto 1rem;
+    }
+
+    .card-container>.card {
+        width: calc(50% - 0.6rem);
+        margin: 0.3rem;
+    }
+</style>
+
 <div class="row ">
     <div class="col-md-5">
         <div class="card card-body">
             <h5>DOCTORS:</h5>
-            <table class="table table-sm">
-                <tr>
-                    <th>Choose </th>
-                    <th>Doctor</th>
-                    <th>Department</th>
-                </tr>
+            <div class="d-flex flex-wrap card-container">
                 {% for doctor in doctors %}
-                <tr>
-                    <td><a class="btn btn-info btn-sm btn-block" href="{% url 'create_appointment' doctor.id %}">TakeAppointment</a></td>
-                    <td>{{doctor.name}}</td>
-                    <th>{{doctor.department}}</th>
-                </tr>
+                <div class="card shadow-sm">
+                    <img src="https://www.sriramachandra.edu.in/medical/oldmanager/images/doctors/dhanalakshmi-final.jpg"
+                        class="card-img-top" alt="...">
+                    <div class="card-body p-2">
+                        <h5 class="card-title">{{doctor.name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{doctor.department}}</h6>
+                        <p class="card-text">Available between: 09:30-17:00<br>Consultation: $100</p>
+                        <a href="{% url 'create_appointment' doctor.id %}" class="btn btn-primary py-1 px-2">Book Appointment</a>
+                    </div>
+                </div>
                 {% endfor %}
-            </table>
+            </div>
         </div>
     </div>
     <div class="col-md-7">
         <div class="col-md">
             <div class="card card-body">
                 <h5>YOUR APPOINTMENTS:</h5>
-                <table class="table table-sm">
-                    <tr>
-                        <th>Doctor Name</th>
-                        <th>Department</th>
-                        <th>Date appointed</th>
-                        <th>Status</th>
-                        <th>Update</th>
-                        <th>Delete</th>
-                    </tr>
-                    {% for appoint in appoints %}
-                    <tr>
-                        <td>{{appoint.doctor.name}}</td>
-                        <td>{{appoint.doctor.department}}</td>
-                        <td>{{appoint.date_created}}</td>
-                        <td>{{appoint.status}}</td>
-                        {% if appoint.status == "PENDING" %}
-                        <td><a class="btn btn-warning btn-sm btn-block" href="{% url 'update_appoint' appoint.id %}">Update</a></td>
-                        <td><a class="btn btn-danger btn-sm btn-block" href="{% url 'delete_appoint' appoint.id %}">Remove</a></td>
-                        {% else %}
-                        <td></td>
-                        <td><a class="btn btn-info btn-sm btn-block" href="{% url 'prescription' appoint.id %}">View Prescription</a></td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
+                <hr>
+                <h5 style="opacity: 0.65; font-weight: bold;">Current Appointments</h5>
+                <table class="table table-sm table-hover current-appointments">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Doctor</th>
+                            <th>Department</th>
+                            <th>Date/Time</th>
+                            <th>Update</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        {% for appoint in appoints %}
+                        <tr>
+                            <td>{{appoint.status}}</td>
+                            <td>{{appoint.doctor.name}}</td>
+                            <td>{{appoint.doctor.department}}</td>
+                            <td>{{appoint.date_created}}</td>
+                            <td><a class="btn btn-warning btn-sm btn-block" href="{% url 'update_appoint' appoint.id %}">Update</a></td>
+                            <td><a class="btn btn-danger btn-sm btn-block" href="{% url 'delete_appoint' appoint.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+    
+                <table class="table table-sm table-hover past-appointments">
+                    <h5 style="opacity: 0.65; font-weight: bold;">Past Appointments</h5>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Doctor</th>
+                            <th>Department</th>
+                            <th>Date/Time</th>
+                            <th colspan="2" class="text-center">Prescription</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        {% for appoint in appoints %}
+                        <tr>
+                            <td>{{appoint.status}}</td>
+                            <td>{{appoint.doctor.name}}</td>
+                            <td>{{appoint.doctor.department}}</td>
+                            <td>{{appoint.date_created}}</td>
+                            <td><a class="btn btn-warning btn-sm btn-block" href="{% url 'prescription' appoint.id %}">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>
