@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import CreateUserForm, AppointmentForm, PrescriptionForm
 from django.contrib.auth import authenticate, login, logout
 from .decorators import already_login, doctor_only, allowed_user
-from .models import Doctor, Patient, Appointment
+from .models import Doctor, Patient, Appointment, Prescription
 from django.contrib.auth.models import User, Group
 # Create your views here.
 
@@ -119,13 +119,13 @@ def delete_appointment(request,pk):
 
 def prescription(request, pk):
     appoint = Appointment.objects.get(id=pk)
-    form = PrescriptionForm(instance=appoint)
+    prescript = Prescription.objects.get(appoint=appoint)
+    print(f'Prescription {prescript}')
+    form = PrescriptionForm(instance=prescript)
     if request.method == 'POST':
-        form = PrescriptionForm(request.POST, instance=appoint)
+        form = PrescriptionForm(request.POST, instance=prescript)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, "Account Created Successfully.. for "+ username)
             return redirect('login')
     
     context = {'form': form}
@@ -134,6 +134,7 @@ def prescription(request, pk):
 def appointment(request, pk, time):
     doctor = Doctor.objects.get(id=pk)
     patient = request.user.patient
-    Appointment.objects.create(doctor=doctor, patient=patient, time=int(time), status="PENDING")
+    appoint = Appointment.objects.create(doctor=doctor, patient=patient, time=int(time), status="PENDING")
+    Prescription.objects.create(appoint=appoint)
     return redirect('home')
 

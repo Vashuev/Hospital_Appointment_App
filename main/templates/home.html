@@ -11,8 +11,7 @@
                     <th>Patient</th>
                     <th>Date Appointed</th>
                     <th>Status</th>
-                    <th>Update</th>
-                    <th>Remove</th>
+                    <th>Pending/Done</th>
                 </tr>
                 {% for appoint in appoints %}
                 <tr>
@@ -20,11 +19,9 @@
                     <td>{{appoint.date_created}}</td>
                     <td>{{appoint.status}}</td>
                     {% if appoint.status == "PENDING" %}
-                    <td><a class="btn btn-warning btn-sm btn-block" href="{% url 'update_appoint' appoint.id %}">Update</a></td>
-                    <td><a class="btn btn-danger btn-sm btn-block" href="{% url 'delete_appoint' appoint.id %}">Remove</a></td>
+                    <td><a class="btn btn-warning btn-sm btn-block" href="{% url 'prescription' appoint.id %}">Done</a></td>
                     {% else %}
-                    <td></td>
-                    <td><a class="btn btn-info btn-sm btn-block" href="{% url 'prescription' appoint.id %}">View Prescription</a></td>
+                    <td><a class="btn btn-info btn-sm btn-block" href="{% url 'prescription' appoint.id %}">See Prescription</a></td>
                     {% endif %}
                 </tr>
                 {% endfor %}

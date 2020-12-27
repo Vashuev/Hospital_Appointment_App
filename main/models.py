@@ -43,9 +43,10 @@ class Appointment(models.Model):
         return str(self.doctor)+" "+ str(self.patient)
 
 class Prescription(models.Model):
-    appoint = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    appoint = models.OneToOneField(Appointment, on_delete=models.CASCADE, primary_key=True,)
     medicine = models.CharField(max_length = 100, null=True)
     salt_name = models.CharField(max_length = 100, null=True)
     dosageperday = models.IntegerField(null=True)
     no_of_days = models.IntegerField(null=True)
-
+    def __str__(self):
+        return str(self.appoint)
