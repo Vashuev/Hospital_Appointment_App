@@ -2,14 +2,32 @@
 
 {% block content %}
 <div class="row">
-    <div class="col">
+    <div class="col-6 container">
         <div class="card card-body">
-        <form action="" method="POST">
-            {{form}}
-            <a class="btn btn-info btn-sm" href="{% url 'home' %}">BACK</a>
-            <input class="btn btn-info btn-sm" type="submit" name="DONE" >
-        </form>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="medicine" class="h5">Medicine Name</label>
+                    <input type="text" name="medicine" class="form-control" id="medicine">
+                </div>
+                <div class="form-group">
+                    <label for="salt_name" class="h5">Salt Name</label>
+                    <input type="text" name="salt_name" class="form-control" id="salt_name">
+                </div>
+                <div class="form-group">
+                    <label for="dosageperday" class="h5">Dosage Per Day</label>
+                    <input type="number" min="1" name="dosageperday" class="form-control" id="dosageperday">
+                </div>
+                <div class="form-group">
+                    <label for="no_of_days" class="h5">Number of days</label>
+                    <input type="number" min="1" name="no_of_days" class="form-control" id="no_of_days">
+                </div>
+                <a class="btn btn-info btn-sm" href="{% url 'home' %}">BACK</a>
+                <input class="btn btn-info btn-sm" type="submit" name="DONE">
+            </form>
+            {{form.errors}}
         </div>
     </div>
+</div>
 </div>
 {% endblock %}
