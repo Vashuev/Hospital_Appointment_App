@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center">
+    <h2>TAKE TODAY'S APPOINTMENTS</h2>
+</div>
+
+<div class="row my-4 ">
+    <div class="col-md">
+
+    </div>
+    <div class="col-md ">
+        <div class="card card-body">
+            <table class="table table-sm">
+                {{times}}
+                <tr>
+                    <th>Time Slot</th>
+                    <th>Remove</th>
+                </tr>
+                {% set count = 9 %}
+                {% for time_slot in time_range  %}
+                {% if time_slot not in times %}
+                <tr>
+                    <td>{% begin + time_slot %} : {% begin + time_slot + 1%}</td>
+                    <td><a class="btn btn-info btn-sm btn-block" href="">Done</a></td>
+                </tr>
+                {% endif%}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="col-md">
+        
+    </div>
+</div>
+
+{% endblock %}

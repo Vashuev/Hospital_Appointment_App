@@ -1,0 +1,112 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center h-100">
+	<div class="container-sm my-3">
+		<form class="bg-light p-sm-4 p-2 rounded" action="" method="POST">
+			<h2 class='text-center text-uppercase mb-3'>Registeration</h2>
+
+			<div class="form-group row mb-2">
+				<label for="firstName" class="col-sm-3 col-form-label">First Name*</label>
+				<div class="col-sm-9">
+					<!-- <input type="text" class="form-control" id="firstName" aria-describedby="First Name"
+						placeholder="First Name" required> -->
+					{{form.first_name}}
+				</div>
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="lastName" class="col-sm-3 col-form-label">Last Name*</label>
+				<div class="col-sm-9">
+					<!-- <input type="text" class="form-control" id="lastName" aria-describedby="Last Name"
+						placeholder="Last Name" required> -->
+					{{form.last_name}}
+				</div>
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="email" class="col-sm-3 col-form-label">Email*</label>
+				<div class="col-sm-9">
+					<!-- <input type="email" class="form-control" id="email" aria-describedby="Email" placeholder="Email Id"
+						required> -->
+					{{form.email}}
+				</div>
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="password" class="col-sm-3 col-form-label">Password*</label>
+				<div class="col-sm-9">
+					<!-- <input type="password" class="form-control" id="password" aria-describedby="password"
+						placeholder="Password" required> -->
+					{{form.password1}}
+				</div>
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="password2" class="col-sm-3 col-form-label">Confirm Password*</label>
+				<div class="col-sm-9">
+					<!-- <input type="password" class="form-control" id="password2" aria-describedby="Confirm Password"
+						placeholder="Confirm Password" required> -->
+					{{form.password2}}
+				</div>
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="dob" class="col-sm-3 col-form-label">Date of Birth*</label>
+				<div class="col-sm-9">
+					<!-- <input type="date" class="form-control" id="dob" aria-describedby="Date of Birth" required> -->
+					{{form.dob}}
+				</div>
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="phoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
+				<div class="col-sm-9">
+					<!-- <input type="tel" class="form-control" id="phoneNumber" aria-describedby="Phone number"
+						placeholder="Phone Number"> -->
+					{{form.phone}}
+				</div>
+				<small class="form-text text-muted">Your phone number won't be disclosed anywhere</small>
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="height" class="col-sm-3 col-form-label">Height*</label>
+				<div class="col-sm-9">
+					<!-- <input type="number" class="form-control" id="height" aria-describedby="Height" placeholder="Height"
+						required min="1"> -->
+					{{form.height}}
+				</div>
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="weight" class="col-sm-3 col-form-label">Weight*</label>
+				<div class="col-sm-9">
+					<!-- <input type="number" class="form-control" id="weight" aria-describedby="Weight" placeholder="Weight"
+						required min="1"> -->
+					{{form.weight}}
+				</div>
+			</div>
+
+			<!-- <fieldset class="form-group">
+				<legend class="col-form-label col-sm-3 pt-0">Gender*</legend>
+
+				<div class="form-check form-check-inline">
+					<label class="form-check-label" for="gender--female">Female</label>
+					<input class="form-check-input" type="radio" name="gender" id="gender--female" value="female">
+				</div>
+				<div class="form-check form-check-inline">
+					<label class="form-check-label" for="gender--male">Male</label>
+					<input class="form-check-input" type="radio" name="gender" id="gender--male" value="male">
+				</div>
+				<div class="form-check form-check-inline">
+					<label class="form-check-label" for="gender--other">Other</label>
+					<input class="form-check-input" type="radio" name="gender" id="gender--other" value="other">
+				</div>
+			</fieldset> -->
+
+			<small class="form-text text-mute">* Required fields</small>
+			<button type="submit" class="btn btn-primary w-100">Register</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

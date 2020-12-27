@@ -2,5 +2,34 @@
 
 {% block content %}
 {% include 'status.html' %}
-<h2> HOME PAGE</h2>
+
+<div class="row my-4">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Patient</th>
+                    <th>Date Appointed</th>
+                    <th>Status</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+                {% for appoint in appoints %}
+                <tr>
+                    <td>{{appoint.patient}}</td>
+                    <td>{{appoint.date_created}}</td>
+                    <td>{{appoint.status}}</td>
+                    {% if appoint.status == "PENDING" %}
+                    <td><a class="btn btn-warning btn-sm btn-block" href="{% url 'update_appoint' appoint.id %}">Update</a></td>
+                    <td><a class="btn btn-danger btn-sm btn-block" href="{% url 'delete_appoint' appoint.id %}">Remove</a></td>
+                    {% else %}
+                    <td></td>
+                    <td><a class="btn btn-info btn-sm btn-block" href="{% url 'prescription' appoint.id %}">View Prescription</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

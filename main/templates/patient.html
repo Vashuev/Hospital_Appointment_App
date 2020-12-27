@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center">
+    <h2>HELLO, {{request.user.patient.name}}</h2>
+</div>
+{% include 'status.html' %}
+
+<div class="row ">
+    <div class="col-md-5">
+        <div class="card card-body">
+            <h5>DOCTORS:</h5>
+            <table class="table table-sm">
+                <tr>
+                    <th>Choose </th>
+                    <th>Doctor</th>
+                    <th>Department</th>
+                </tr>
+                {% for doctor in doctors %}
+                <tr>
+                    <td><a class="btn btn-info btn-sm btn-block" href="{% url 'create_appointment' doctor.id %}">TakeAppointment</a></td>
+                    <td>{{doctor.name}}</td>
+                    <th>{{doctor.department}}</th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>YOUR APPOINTMENTS:</h5>
+                <table class="table table-sm">
+                    <tr>
+                        <th>Doctor Name</th>
+                        <th>Department</th>
+                        <th>Date appointed</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    {% for appoint in appoints %}
+                    <tr>
+                        <td>{{appoint.doctor.name}}</td>
+                        <td>{{appoint.doctor.department}}</td>
+                        <td>{{appoint.date_created}}</td>
+                        <td>{{appoint.status}}</td>
+                        {% if appoint.status == "PENDING" %}
+                        <td><a class="btn btn-warning btn-sm btn-block" href="{% url 'update_appoint' appoint.id %}">Update</a></td>
+                        <td><a class="btn btn-danger btn-sm btn-block" href="{% url 'delete_appoint' appoint.id %}">Remove</a></td>
+                        {% else %}
+                        <td></td>
+                        <td><a class="btn btn-info btn-sm btn-block" href="{% url 'prescription' appoint.id %}">View Prescription</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
