@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% for message in messages %}
+    <p id="messages">{{message}}</p>
+{% endfor%}
+
+<div class="row">
+    <div class="col">
+        <form action ="" method="POST">
+            {{name}}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

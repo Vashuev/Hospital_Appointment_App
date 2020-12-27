@@ -11,9 +11,9 @@ class Doctor(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=200, null=True)
-    degree = models.CharField(max_length=200, null=True)
-    department = models.CharField(max_length=200, null=True, choices = CATEGORY)
+    name = models.CharField(max_length=100, null=True)
+    degree = models.CharField(max_length=50, null=True)
+    department = models.CharField(max_length=20, null=True, choices = CATEGORY)
     def __str__(self):
         return self.name
 
@@ -37,6 +37,8 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length = 200, null=True, choices=STATUS)
+    time = models.IntegerField(null=True, blank=True)
+    status = models.CharField(max_length = 10, null=True, choices=STATUS)
+    prescription = models.CharField(max_length=300, null=True, blank=True)
     def __str__(self):
         return str(self.doctor)+" "+ str(self.patient)
