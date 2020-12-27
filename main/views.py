@@ -77,25 +77,22 @@ def logoutPage(request):
 
 @login_required(login_url='login')
 def create_appointment(request, pk):
-    # patient_id = request.user.patient.get(id)
-    # doctor = Doctor.objects.get(id=pk)
-    time_range = range(0, 8)
-    time = Appointment.objects.values('time')
+    doctor = Doctor.objects.get(id=pk)
+    appoints = doctor.appointment_set.all()
+    time_range = []
+    for x in range(9 , 17):
+        if x >12:
+            x = x-12
+        time_range.append(x)
+    time = appoints.values('time')
     times = []
     for t in time:
         times.append(t['time'])
-    print(f'times : {times}')
-    print(f'time_range : {time_range}')
-    # form = AppointmentForm()
-    # if request.method == 'POST':
-    #     form = AppointmentForm()
-    #     if form.is_valid():
-    #         form.save()
-    #         messages.info(request, "Appointment has Added Successfully!")
+    
     context = {
         'time_range' : time_range,
         'times': times,
-        'begin' : 9
+        'doctor': doctor,
     }
     return render(request, 'create_appoint.html', context)
 
@@ -127,3 +124,7 @@ def prescription(request, pk):
     prescript = appoint.prescription
     context = {'prescript': prescript}
     return render(request, 'prescription.html', context)
+
+def appointment(request):
+
+    return redirect('home')
