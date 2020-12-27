@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CreateUserForm, AppointmentForm
+from .forms import CreateUserForm, AppointmentForm, PrescriptionForm
 from django.contrib.auth import authenticate, login, logout
 from .decorators import already_login, doctor_only, allowed_user
 from .models import Doctor, Patient, Appointment
@@ -119,8 +119,16 @@ def delete_appointment(request,pk):
 
 def prescription(request, pk):
     appoint = Appointment.objects.get(id=pk)
-    prescript = appoint.prescription
-    context = {'prescript': prescript}
+    form = PrescriptionForm(instance=appoint)
+    if request.method == 'POST':
+        form = PrescriptionForm(request.POST, instance=appoint)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, "Account Created Successfully.. for "+ username)
+            return redirect('login')
+    
+    context = {'form': form}
     return render(request, 'prescription.html', context)
 
 def appointment(request, pk, time):
@@ -128,3 +136,4 @@ def appointment(request, pk, time):
     patient = request.user.patient
     Appointment.objects.create(doctor=doctor, patient=patient, time=int(time), status="PENDING")
     return redirect('home')
+

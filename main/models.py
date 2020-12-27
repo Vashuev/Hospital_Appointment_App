@@ -39,6 +39,13 @@ class Appointment(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     time = models.IntegerField(null=True, blank=True)
     status = models.CharField(max_length = 10, null=True, choices=STATUS)
-    prescription = models.CharField(max_length=300, null=True, blank=True)
     def __str__(self):
         return str(self.doctor)+" "+ str(self.patient)
+
+class Prescription(models.Model):
+    appoint = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    medicine = models.CharField(max_length = 100, null=True)
+    salt_name = models.CharField(max_length = 100, null=True)
+    dosageperday = models.IntegerField(null=True)
+    no_of_days = models.IntegerField(null=True)
+
